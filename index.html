@@ -61,12 +61,13 @@
   <div class="w-full max-w-md flex flex-col justify-between py-2">
     <header class="mb-5 flex justify-between items-center border-b border-borderWarm pb-4">
       <div class="flex items-center gap-2.5">
-        <svg class="w-7 h-7 flex-shrink-0" viewBox="0 0 100 100" fill="none">
-          <path d="M50 85 V45 C50 36 41 36 41 45 V85" stroke="#111215" stroke-width="7" stroke-linecap="round"/>
-          <ellipse cx="40" cy="56" rx="9" ry="5" transform="rotate(-25 40 56)" stroke="#8B8DF8" stroke-width="4.5"/>
-          <ellipse cx="51" cy="56" rx="9" ry="5" transform="rotate(25 51 56)" stroke="#8B8DF8" stroke-width="4.5"/>
-          <circle cx="45.5" cy="56" r="3" fill="#8B8DF8"/>
-          <path d="M43 59 C40 67 34 71 30 74 M48 59 C51 67 57 71 61 74" stroke="#8B8DF8" stroke-width="3.5" stroke-linecap="round"/>
+        <svg class="w-7 h-7 flex-shrink-0" viewBox="0 0 100 100">
+          <rect x="40" y="10" width="20" height="82" rx="10" fill="#111215"/>
+          <path d="M50,50 C38,36 18,37 13,50 C18,63 38,60 50,50 Z" fill="#8B8DF8"/>
+          <path d="M50,50 C62,36 82,37 87,50 C82,63 62,60 50,50 Z" fill="#8B8DF8"/>
+          <path d="M46,53 C41,62 36,71 31,81 C29,85 33,87 36,83 C42,74 47,64 51,55 Z" fill="#8B8DF8"/>
+          <path d="M54,53 C59,62 64,71 69,81 C71,85 67,87 64,83 C58,74 53,64 49,55 Z" fill="#8B8DF8"/>
+          <circle cx="50" cy="50" r="7.5" fill="#7371FC"/>
         </svg>
         <div>
           <p class="font-mono text-[10px] uppercase tracking-widest text-muted">Studio Fondue</p>
@@ -81,12 +82,38 @@
       </div>
     </header>
 
+    <div id="notifBanner" class="hidden items-center justify-between gap-3 bg-accentLilacSoft border border-accentLilac/40 rounded-card px-4 py-3 mb-5">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <svg class="w-4 h-4 text-accentLilacDeep flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.4-1.4A2 2 0 0118 14.2V11a6 6 0 10-12 0v3.2c0 .5-.2 1-.6 1.4L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+        <p class="text-xs font-medium text-obsidian leading-snug">Enable notifications so nudges reach you, even off-screen.</p>
+      </div>
+      <div class="flex items-center gap-1.5 flex-shrink-0">
+        <button id="notifEnableBtn" class="bg-obsidian text-canvas font-semibold px-3 py-1.5 rounded-lg text-[11px] active:scale-95 transition-transform">Enable</button>
+        <button id="notifDismissBtn" class="text-muted font-medium px-2 py-1.5 rounded-lg text-[11px] active:scale-95 transition-transform">Not now</button>
+      </div>
+    </div>
+
+    <div id="nudgeBanner" class="hidden items-start gap-3 bg-obsidian text-canvas rounded-card px-4 py-3.5 mb-5 shadow-lg">
+      <span class="w-2 h-2 rounded-full bg-accentLilac animate-pulse mt-1.5 flex-shrink-0"></span>
+      <div class="min-w-0">
+        <p class="font-mono text-[10px] uppercase tracking-widest text-accentLilac font-bold">Nudge</p>
+        <p id="nudgeBannerText" class="text-sm font-medium leading-snug"></p>
+      </div>
+    </div>
+
     <div class="bg-cardBg border border-borderWarm rounded-card p-4 shadow-sm mb-5">
       <div class="flex items-center gap-2 mb-3">
         <input id="taskInput" type="text" placeholder="Dictate or type (e.g. 'Gym in 45 mins')" maxlength="80" class="w-full bg-transparent text-sm font-medium focus:outline-none placeholder:text-muted placeholder:font-normal" />
-        <button id="micBtn" type="button" title="Dictate with smart timing" class="p-2 text-muted hover:text-obsidian active:scale-95 transition-transform rounded-lg">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19 10v1a7 7 0 01-14 0v-1M12 18v4M8 22h8"/></svg>
-        </button>
+        <div class="relative flex-shrink-0 w-9 h-9">
+          <span id="micPulseRing" class="hidden absolute inset-0 rounded-full bg-red-500/50 animate-ping"></span>
+          <button id="micBtn" type="button" title="Dictate with smart timing" class="relative w-9 h-9 flex items-center justify-center text-muted hover:text-obsidian active:scale-95 transition-all rounded-full">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19 10v1a7 7 0 01-14 0v-1M12 18v4M8 22h8"/></svg>
+          </button>
+        </div>
+      </div>
+      <div id="listeningIndicator" class="hidden items-center gap-1.5 -mt-1.5 mb-3">
+        <span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
+        <span class="font-mono text-[11px] font-semibold text-red-500 tracking-wide">Listening...</span>
       </div>
       <div class="space-y-2.5 pt-3 border-t border-borderWarm/60 text-xs">
         <div class="flex items-center justify-between gap-2">
@@ -153,6 +180,39 @@
         <button id="saveSettingsBtn" class="flex-1 bg-obsidian text-canvas py-2 rounded-xl text-xs font-semibold active:scale-95 transition-transform">Save</button>
         <button id="closeSettingsBtn" class="flex-1 border border-borderWarm text-muted py-2 rounded-xl text-xs font-semibold active:scale-95 transition-transform">Cancel</button>
       </div>
+    </div>
+  </div>
+
+  <div id="editTaskModal" class="fixed inset-0 bg-obsidian/40 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-200">
+    <div class="bg-cardBg border border-borderWarm rounded-card p-6 w-full max-w-sm shadow-xl">
+      <h3 class="font-bold text-base text-obsidian mb-4">Edit Task</h3>
+
+      <div class="space-y-3">
+        <div>
+          <label class="font-mono text-[10px] uppercase tracking-widest text-muted">Title</label>
+          <input id="editTaskTitle" type="text" maxlength="80" class="w-full mt-1 bg-canvas border border-borderWarm rounded-lg px-3 py-2 text-sm font-medium text-obsidian focus:outline-none" />
+        </div>
+        <div>
+          <label class="font-mono text-[10px] uppercase tracking-widest text-muted">When</label>
+          <input id="editTaskDue" type="datetime-local" class="w-full mt-1 bg-canvas border border-borderWarm rounded-lg px-3 py-2 text-obsidian font-mono text-xs focus:outline-none" />
+        </div>
+        <div>
+          <label class="font-mono text-[10px] uppercase tracking-widest text-muted">Early Alert</label>
+          <select id="editTaskEarlyAlert" class="w-full mt-1 bg-canvas border border-borderWarm rounded-lg px-3 py-2 text-obsidian font-mono text-xs focus:outline-none">
+            <option value="0">At time of event</option>
+            <option value="5">5 mins before</option>
+            <option value="15">15 mins before</option>
+            <option value="30">30 mins before</option>
+            <option value="60">1 hour before</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex gap-2 mt-5">
+        <button id="editTaskSaveBtn" class="flex-1 bg-obsidian text-canvas py-2 rounded-xl text-xs font-semibold active:scale-95 transition-transform">Save</button>
+        <button id="editTaskCancelBtn" class="flex-1 border border-borderWarm text-muted py-2 rounded-xl text-xs font-semibold active:scale-95 transition-transform">Cancel</button>
+      </div>
+      <button id="editTaskDeleteBtn" class="w-full mt-3 text-center text-[11px] font-mono text-muted hover:text-red-500 underline underline-offset-2 transition-colors">Delete task</button>
     </div>
   </div>
 
@@ -268,24 +328,67 @@
 
     const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
     let recognition = SpeechRec ? new SpeechRec() : null;
+    let silenceTimer = null;
+    let isListening = false;
+    const SILENCE_MS = 1500;
+
+    function setListeningUI(active) {
+      const micBtn = document.getElementById('micBtn');
+      const micRing = document.getElementById('micPulseRing');
+      const indicator = document.getElementById('listeningIndicator');
+      if (active) {
+        micBtn.classList.remove('text-muted', 'hover:text-obsidian');
+        micBtn.classList.add('bg-red-500', 'text-white');
+      } else {
+        micBtn.classList.remove('bg-red-500', 'text-white');
+        micBtn.classList.add('text-muted', 'hover:text-obsidian');
+      }
+      micRing.classList.toggle('hidden', !active);
+      indicator.classList.toggle('hidden', !active);
+      indicator.classList.toggle('flex', active);
+    }
+    function clearSilenceTimer() {
+      if (silenceTimer) { clearTimeout(silenceTimer); silenceTimer = null; }
+    }
+    function armSilenceTimer() {
+      clearSilenceTimer();
+      silenceTimer = setTimeout(() => {
+        if (recognition && isListening) { try { recognition.stop(); } catch (e) {} }
+      }, SILENCE_MS);
+    }
+    function stopDictation() {
+      clearSilenceTimer();
+      isListening = false;
+      setListeningUI(false);
+    }
+
     if (recognition) {
-      recognition.continuous = false; recognition.lang = 'en-GB';
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = 'en-GB';
+      recognition.onstart = () => { isListening = true; setListeningUI(true); armSilenceTimer(); };
       recognition.onresult = (e) => {
-        const parsed = parseSpokenIntent(e.results[0][0].transcript);
-        document.getElementById('taskInput').value = parsed.taskText;
-        if (parsed.targetDate) { setDueInput(parsed.targetDate); showToast(`Parsed: Due ${formatTimeLabel(parsed.targetDate.getTime())}`); }
-        document.getElementById('micBtn').classList.remove('bg-accentLilacSoft', 'text-accentLilacDeep');
+        armSilenceTimer();
+        const last = e.results[e.results.length - 1];
+        if (last.isFinal) {
+          const parsed = parseSpokenIntent(last[0].transcript);
+          document.getElementById('taskInput').value = parsed.taskText;
+          if (parsed.targetDate) { setDueInput(parsed.targetDate); showToast(`Parsed: Due ${formatTimeLabel(parsed.targetDate.getTime())}`); }
+          try { recognition.stop(); } catch (e) {}
+        }
       };
-      recognition.onerror = () => document.getElementById('micBtn').classList.remove('bg-accentLilacSoft', 'text-accentLilacDeep');
-      recognition.onend = () => document.getElementById('micBtn').classList.remove('bg-accentLilacSoft', 'text-accentLilacDeep');
+      recognition.onerror = () => { try { recognition.stop(); } catch (e) {} };
+      recognition.onend = () => { stopDictation(); };
     }
 
     document.getElementById('micBtn').addEventListener('click', () => {
       initAudio();
       if (!recognition) return showToast('Dictation not supported in this browser.');
-      recognition.start();
-      document.getElementById('micBtn').classList.add('bg-accentLilacSoft', 'text-accentLilacDeep');
-      showToast('Say: "Clean room in 45 mins"');
+      if (isListening) { try { recognition.stop(); } catch (e) {} return; }
+      try {
+        recognition.start();
+        showToast('Say: "Clean room in 45 mins"');
+      } catch (e) {}
     });
 
     document.getElementById('addBtn').addEventListener('click', () => {
@@ -399,10 +502,10 @@
         const card = document.createElement('div');
         card.className = 'bg-cardBg border border-borderWarm rounded-card p-4 shadow-sm flex items-center justify-between gap-3';
         card.innerHTML = `
-          <div class="flex-1 min-w-0">
+          <div class="flex-1 min-w-0 cursor-pointer" onclick="openEditModal('${task.id}')">
             <div class="flex items-center gap-2 mb-1">
               <span class="font-mono text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${badgeColor}">${badge}</span>
-              ${task.status === 'soft_done' ? `<button onclick="resetTask('${task.id}')" class="font-mono text-[10px] text-muted hover:text-obsidian underline">Reset Check</button>` : ''}
+              ${task.status === 'soft_done' ? `<button onclick="event.stopPropagation(); resetTask('${task.id}')" class="font-mono text-[10px] text-muted hover:text-obsidian underline">Reset Check</button>` : ''}
             </div>
             <p class="font-semibold text-obsidian text-sm leading-snug break-words">${task.text}</p>
             <p class="font-mono text-[11px] text-muted mt-0.5">${subtitle}</p>
@@ -428,6 +531,112 @@
       task.status = 'active'; task.stage = 0; task.targetTime = task.dueTime;
       saveTasks(tasks); showToast('Accident undone. Task reset.');
     };
+
+    let editingTaskId = null;
+    const editTaskModal = document.getElementById('editTaskModal');
+    window.openEditModal = function(taskId) {
+      const tasks = getTasks(); const task = tasks.find(t => t.id === taskId);
+      if (!task) return;
+      editingTaskId = taskId;
+      document.getElementById('editTaskTitle').value = task.text;
+      const d = new Date(task.dueTime);
+      d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+      document.getElementById('editTaskDue').value = d.toISOString().slice(0, 16);
+      document.getElementById('editTaskEarlyAlert').value = String(task.earlyMins || 0);
+      editTaskModal.classList.remove('opacity-0', 'pointer-events-none');
+    };
+    function closeEditModal() {
+      editingTaskId = null;
+      editTaskModal.classList.add('opacity-0', 'pointer-events-none');
+    }
+    document.getElementById('editTaskCancelBtn').addEventListener('click', closeEditModal);
+    document.getElementById('editTaskSaveBtn').addEventListener('click', () => {
+      if (!editingTaskId) return;
+      const tasks = getTasks(); const task = tasks.find(t => t.id === editingTaskId);
+      if (!task) return closeEditModal();
+      const title = document.getElementById('editTaskTitle').value.trim();
+      const dueVal = document.getElementById('editTaskDue').value;
+      const earlyMins = parseInt(document.getElementById('editTaskEarlyAlert').value, 10);
+      if (!title || !dueVal) return showToast('Title and due time are required.');
+      const dueTimestamp = new Date(dueVal).getTime();
+      task.text = title;
+      task.dueTime = dueTimestamp;
+      task.earlyMins = earlyMins;
+      task.targetTime = dueTimestamp - (earlyMins * 60000);
+      task.status = 'active';
+      task.stage = 0;
+      delete task.notifiedStage;
+      saveTasks(tasks);
+      closeEditModal();
+      showToast('Task updated.');
+    });
+    document.getElementById('editTaskDeleteBtn').addEventListener('click', () => {
+      if (!editingTaskId) return;
+      const tasks = getTasks().filter(t => t.id !== editingTaskId);
+      saveTasks(tasks);
+      closeEditModal();
+      showToast('Task deleted.');
+    });
+
+    const NOTIF_DISMISS_KEY = 'nudge_notif_dismissed';
+    const notifBanner = document.getElementById('notifBanner');
+    function hideNotifBanner() {
+      notifBanner.classList.add('hidden'); notifBanner.classList.remove('flex');
+    }
+    function initNotifBanner() {
+      if (!('Notification' in window)) return;
+      if (Notification.permission !== 'default') return;
+      if (localStorage.getItem(NOTIF_DISMISS_KEY)) return;
+      notifBanner.classList.remove('hidden'); notifBanner.classList.add('flex');
+    }
+    document.getElementById('notifEnableBtn').addEventListener('click', () => {
+      Notification.requestPermission().then((perm) => {
+        localStorage.setItem(NOTIF_DISMISS_KEY, '1');
+        hideNotifBanner();
+        showToast(perm === 'granted' ? 'Notifications enabled.' : 'Notifications blocked. Nudge will still chime.');
+      });
+    });
+    document.getElementById('notifDismissBtn').addEventListener('click', () => {
+      localStorage.setItem(NOTIF_DISMISS_KEY, '1');
+      hideNotifBanner();
+    });
+
+    let nudgeBannerTimer = null;
+    function showNudgeBanner(text) {
+      const banner = document.getElementById('nudgeBanner');
+      document.getElementById('nudgeBannerText').innerText = text;
+      banner.classList.remove('hidden'); banner.classList.add('flex');
+      clearTimeout(nudgeBannerTimer);
+      nudgeBannerTimer = setTimeout(() => { banner.classList.add('hidden'); banner.classList.remove('flex'); }, 6000);
+    }
+    function playNudgeChime() {
+      setTimeout(() => playTone(660, 'sine', 0.14), 0);
+      setTimeout(() => playTone(880, 'sine', 0.18), 140);
+    }
+    function fireNudge(task, line) {
+      playNudgeChime();
+      try { navigator.vibrate && navigator.vibrate([80, 40, 80]); } catch (e) {}
+      const granted = ('Notification' in window) && Notification.permission === 'granted';
+      if (granted) {
+        try { new Notification('Nudge', { body: line, icon: '/favicon.png', tag: task.id }); } catch (e) { showNudgeBanner(`${task.text} — ${line}`); }
+      } else {
+        showNudgeBanner(`${task.text} — ${line}`);
+      }
+    }
+    function checkNudges() {
+      const tasks = getTasks();
+      const now = Date.now();
+      let changed = false;
+      tasks.forEach((task) => {
+        if ((task.status === 'active' || task.status === 'soft_done') && now >= task.targetTime && task.notifiedStage !== task.stage) {
+          const line = softNudgeLines[hashToIndex(task.id + ':' + task.stage, softNudgeLines.length)];
+          fireNudge(task, line);
+          task.notifiedStage = task.stage;
+          changed = true;
+        }
+      });
+      if (changed) localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+    }
 
     function bindButton(task) {
       const btn = document.getElementById(`btn-${task.id}`);
@@ -482,8 +691,10 @@
       saveTasks(getTasks().filter(t => t.id !== taskId));
     }
 
-    setInterval(render, 30000);
+    setInterval(() => { checkNudges(); render(); }, 10000);
     render();
+    checkNudges();
+    initNotifBanner();
   </script>
 </body>
 </html>
