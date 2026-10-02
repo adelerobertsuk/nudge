@@ -9,10 +9,11 @@
   <meta name="apple-mobile-web-app-title" content="Nudge" />
   <meta property="og:title" content="Nudge" />
   <meta property="og:description" content="A low-friction follow-up tool for your day." />
-  <meta property="og:image" content="https://nudge-lime-zeta.vercel.app/og-image.png?v=1790953001" />
+  <meta property="og:url" content="https://nudge-lime-zeta.vercel.app/" />
+  <meta property="og:image" content="https://nudge-lime-zeta.vercel.app/og-image.png" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://nudge-lime-zeta.vercel.app/og-image.png?v=1790953001" />
+  <meta name="twitter:image" content="https://nudge-lime-zeta.vercel.app/og-image.png" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -63,18 +64,9 @@
 <body class="min-h-screen flex justify-center p-4 sm:p-6 antialiased">
   <div class="w-full max-w-md flex flex-col justify-between py-2">
     <header class="mb-5 flex justify-between items-center border-b border-borderWarm pb-4">
-      <div class="flex items-center gap-2.5">
-        <svg class="w-7 h-7 flex-shrink-0" viewBox="0 0 100 100">
-          <path d="M50,50 C38,36 18,37 13,50 C18,63 38,60 50,50 Z" fill="#8B8DF8"/>
-          <path d="M50,50 C62,36 82,37 87,50 C82,63 62,60 50,50 Z" fill="#8B8DF8"/>
-          <path d="M46,54 L50,54 L39,85 L35,74 Z" fill="#7371FC"/>
-          <path d="M54,54 L50,54 L61,85 L65,74 Z" fill="#7371FC"/>
-          <rect x="43" y="43" width="14" height="14" rx="3" fill="#7371FC" transform="rotate(45 50 50)"/>
-        </svg>
-        <div>
-          <p class="font-mono text-[10px] uppercase tracking-widest text-muted">Studio Fondue</p>
-          <h1 class="text-xl font-bold tracking-tight text-obsidian -mt-0.5">Nudge</h1>
-        </div>
+      <div>
+        <p class="font-mono text-[10px] uppercase tracking-widest text-muted">Studio Fondue</p>
+        <h1 class="text-xl font-bold tracking-tight text-obsidian -mt-0.5">Nudge</h1>
       </div>
       <div class="flex items-center gap-2">
         <div id="taskCount" class="font-mono text-xs font-semibold px-2.5 py-1 bg-[rgba(168,143,237,0.15)] text-accentLilacDeep rounded-full">0/5 ACTIVE</div>
@@ -485,13 +477,6 @@
       document.getElementById('taskCount').innerText = `${tasks.length}/5 ACTIVE`;
       listEl.innerHTML = tasks.length === 0 ? `
         <div class="p-8 text-center border border-dashed border-borderWarm rounded-card">
-          <svg class="w-10 h-10 mx-auto mb-3 opacity-80" viewBox="0 0 100 100">
-            <path d="M50,50 C38,36 18,37 13,50 C18,63 38,60 50,50 Z" fill="#8B8DF8"/>
-            <path d="M50,50 C62,36 82,37 87,50 C82,63 62,60 50,50 Z" fill="#8B8DF8"/>
-            <path d="M46,54 L50,54 L39,85 L35,74 Z" fill="#7371FC"/>
-            <path d="M54,54 L50,54 L61,85 L65,74 Z" fill="#7371FC"/>
-            <rect x="43" y="43" width="14" height="14" rx="3" fill="#7371FC" transform="rotate(45 50 50)"/>
-          </svg>
           <p class="font-mono text-xs text-muted">Zero tasks pending. You are completely clear.</p>
         </div>` : '';
 
